@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | TGSRTC Complaint Portal</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+        
+
+        .admin-page {
+            min-height: 70vh;
+            padding: 50px 20px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .admin-header {
+            margin-bottom: 30px;
+        }
+
+        .admin-header h1 {
+            color: #123b78;
+            margin-bottom: 8px;
+        }
+
+        .admin-header p {
+            color: #667085;
+        }
+
+        .admin-notice {
+            padding: 15px 18px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e3e8f0;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+        }
+
+        .stat-card span {
+            display: block;
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card strong {
+            font-size: 28px;
+            color: #123b78;
+        }
+
+        .complaints-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            overflow-x: auto;
+        }
+
+        .complaints-card h2 {
+            color: #123b78;
+            margin-bottom: 20px;
+        }
+
+        .complaints-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        .complaints-table th {
+            background: #f1f5f9;
+            color: #172033;
+            text-align: left;
+            padding: 13px;
+            font-size: 13px;
+        }
+
+        .complaints-table td {
+            padding: 13px;
+            border-bottom: 1px solid #e3e8f0;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .complaints-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-select {
+            padding: 8px 10px;
+            border: 1px solid #d9dee8;
+            border-radius: 7px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 35px;
+            color: #667085;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #667085;
+        }
+
+        .refresh-btn {
+            margin-bottom: 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .logout-btn {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        background: #d71920;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+
+    .logout-btn:hover {
+        background: #b91c1c;
+    }
+                /* =====================================================
+           COMPLAINT DETAILS
+        ===================================================== */
+
+        .details-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 7px;
+            background: #123b78;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .details-btn:hover {
+            background: #0b2c5d;
+        }
+
+        .details-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .details-modal.show {
+            display: flex;
+        }
+
+        .details-modal-card {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .details-modal-card h2 {
+            color: #123b78;
+            margin-bottom: 25px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #172033;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .detail-box {
+            padding: 14px;
+            background: #f8fafc;
+            border: 1px solid #e3e8f0;
+            border-radius: 8px;
+        }
+
+        .detail-box.full {
+            grid-column: 1 / -1;
+        }
+
+        .detail-box span {
+            display: block;
+            color: #667085;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .detail-box strong {
+            color: #172033;
+            word-break: break-word;
+        }
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .admin-page {
+                padding: 35px 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .complaints-card {
+                padding: 18px;
+            }
+
+        }
+        .filter-bar {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.filter-bar input,
+.filter-bar select {
+    padding: 11px 14px;
+    border: 1px solid #e3e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+}
+
+.filter-bar input {
+    flex: 1;
+    min-width: 250px;
+}
+
+.filter-bar select {
+    min-width: 180px;
+}
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+    outline: none;
+    border-color: #123b78;
+}
+.analytics-card {
+    margin-bottom: 30px;
+}
+.chart-card {
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 350px;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+
+    .chart-container {
+        height: 280px;
+    }
+
+}
+.category-analytics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.analytics-item {
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid #e3e8f0;
+    border-radius: 10px;
+}
+
+.analytics-item span {
+    display: block;
+    color: #667085;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.analytics-item strong {
+    font-size: 24px;
+    color: #123b78;
+}
+
+@media (max-width: 900px) {
+
+    .category-analytics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .category-analytics {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+    </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="../index.html"
+            class="logo">
+            TGSRTC Complaint Portal
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="complaint.html">
+                File Complaint
+            </a>
+
+            <a href="track.html">
+                Track Complaint
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="admin-page">
+
+    <div class="admin-container">
+
+
+        <div class="admin-header">
+
+            <h1>
+                Complaint Admin Dashboard
+            </h1>
+
+            <p>
+                View and manage complaints stored in the project database.
+            </p>
+
+        </div>
+
+
+        <div class="admin-notice">
+
+            <strong>Prototype Notice:</strong>
+
+            This dashboard is for the independent student/project
+            prototype. It is not an official TGSRTC administration system.
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <span>
+                    Total Complaints
+                </span>
+
+                <strong id="totalComplaints">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Submitted
+                </span>
+
+                <strong id="submittedComplaints">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    In Progress
+                </span>
+
+                <strong id="progressComplaints">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Resolved
+                </span>
+
+                <strong id="resolvedComplaints">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary refresh-btn"
+            onclick="loadComplaints()">
+
+            🔄 Refresh Complaints
+
+        </button>
+        <div class="filter-bar">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔎 Search complaint ID, name, bus number..."
+        oninput="filterComplaints()"
+    >
+
+    <select
+        id="statusFilter"
+        onchange="filterComplaints()">
+
+        <option value="All">All Statuses</option>
+        <option value="Submitted">Submitted</option>
+        <option value="Under Review">Under Review</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+
+    </select>
+
+        </div>
+        <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="logout-btn">
+            Logout
+        </button>
+
+        <!-- CATEGORY ANALYTICS -->
+
+<div class="complaints-card analytics-card">
+
+    <h2>
+        Complaint Analytics
+    </h2>
+
+    <div class="category-analytics" id="categoryAnalytics">
+
+        <div class="analytics-item">
+            <span>Bus Issues</span>
+            <strong id="busCount">0</strong>
+        </div>
+
+        <div class="analytics-item">
+            <span>Staff Complaints</span>
+            <strong id="staffCount">0</strong>
+        </div>
+
+        <div class="analytics-item">
+            <span>Fare / Ticket</span>
+            <strong id="fareCount">0</strong>
+        </div>
+
+        <div class="analytics-item">
+            <span>Cleanliness</span>
+            <strong id="cleanlinessCount">0</strong>
+        </div>
+
+        <div class="analytics-item">
+            <span>Bus Delays</span>
+            <strong id="delayCount">0</strong>
+        </div>
+
+        <div class="analytics-item">
+            <span>Lost & Found</span>
+            <strong id="lostCount">0</strong>
+        </div>
+
+        <div class="analytics-item">
+            <span>Other</span>
+            <strong id="otherCount">0</strong>
+        </div>
+
+    </div>
+
+</div>
+<!-- CATEGORY CHART -->
+
+<div class="complaints-card chart-card">
+
+    <h2>
+        Complaint Category Chart
+    </h2>
+
+    <div class="chart-container">
+        <canvas id="categoryChart"></canvas>
+    </div>
+
+</div>
+
+<div class="complaints-card chart-card">
+    <h2>Complaint Status Distribution</h2>
+
+    <div class="chart-container">
+        <canvas id="statusChart"></canvas>
+    </div>
+</div>
+        <!-- COMPLAINT TABLE -->
+
+        <div class="complaints-card">
+
+            <h2>
+                Submitted Complaints
+            </h2>
+
+
+            <div id="loadingMessage"
+                 class="loading">
+
+                Loading complaints...
+
+            </div>
+
+
+            <table
+                class="complaints-table"
+                id="complaintsTable"
+                style="display:none;">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Complaint ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Bus
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Journey Date
+                        </th>
+
+                        <th>
+                            Route
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Details
+                        </th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="complaintsTableBody">
+                </tbody>
+
+            </table>
+
+
+            <div
+                id="emptyMessage"
+                class="empty-message"
+                style="display:none;">
+
+                No complaints have been submitted yet.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+    <!-- =====================================================
+         COMPLAINT DETAILS MODAL
+    ===================================================== -->
+
+    <div
+        id="detailsModal"
+        class="details-modal">
+
+        <div class="details-modal-card">
+
+            <button
+                type="button"
+                class="close-modal"
+                onclick="closeComplaintDetails()">
+
+                ×
+
+            </button>
+
+            <h2>
+                Complaint Details
+            </h2>
+
+            <div
+                id="detailsContent"
+                class="details-content">
+            </div>
+
+        </div>
+
+    </div>
+
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <p>
+            © 2026 TGSRTC Complaint Portal
+        </p>
+
+        <p>
+            A student project prototype for learning and demonstration.
+        </p>
+
+        <p>
+            This is an independent student/project prototype
+            and is not an official TGSRTC website.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    // =====================================================
+    // BACKEND API CONFIGURATION
+    // =====================================================
+
+    const API_BASE_URL =
+        "http://127.0.0.1:8000";
+
+
+    if (
+        sessionStorage.getItem("adminLoggedIn") !== "true"
+    ) {
+
+        window.location.href =
+            "admin-login.html";
+
+    }
+async function loadComplaints() {
+
+    const loadingMessage =
+        document.getElementById("loadingMessage");
+
+    const table =
+        document.getElementById("complaintsTable");
+
+    const emptyMessage =
+        document.getElementById("emptyMessage");
+
+
+    loadingMessage.style.display = "block";
+    table.style.display = "none";
+    emptyMessage.style.display = "none";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/complaints`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load complaints."
+            );
+
+        }
+
+
+        const complaints =
+            await response.json();
+
+
+        window.allComplaints =
+            complaints;
+
+
+        updateStatistics(
+            complaints
+        );
+
+
+        displayComplaints(
+            complaints
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin dashboard error:",
+            error
+        );
+
+
+        loadingMessage.textContent =
+            "Unable to load complaints. Make sure the FastAPI backend is running.";
+
+    }
+
+}
+
+
+function displayComplaints(
+    complaints
+) {
+
+    const loadingMessage =
+        document.getElementById(
+            "loadingMessage"
+        );
+
+    const table =
+        document.getElementById(
+            "complaintsTable"
+        );
+
+    const emptyMessage =
+        document.getElementById(
+            "emptyMessage"
+        );
+
+    const tableBody =
+        document.getElementById(
+            "complaintsTableBody"
+        );
+
+
+    tableBody.innerHTML = "";
+
+
+    if (
+        complaints.length === 0
+    ) {
+
+        loadingMessage.style.display =
+            "none";
+
+        table.style.display =
+            "none";
+
+        emptyMessage.textContent =
+            "No complaints match your search or filter.";
+
+        emptyMessage.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    complaints.forEach(
+        function(complaint) {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.complaint_id
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        complaint.name
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        complaint.bus_number
+                    )}
+                </td>
+
+                <td>
+                    ${formatCategory(
+                        complaint.category
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        complaint.journey_date
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        complaint.route ||
+                        "Not provided"
+                    )}
+                </td>
+
+                <td>
+
+                    <select
+                        class="status-select"
+                        onchange="updateStatus(
+                            '${escapeHtml(
+                                complaint.complaint_id
+                            )}',
+                            this.value
+                        )">
+
+                        <option
+                            value="Submitted"
+                            ${complaint.status === "Submitted" ? "selected" : ""}>
+                            Submitted
+                        </option>
+
+                        <option
+                            value="Under Review"
+                            ${complaint.status === "Under Review" ? "selected" : ""}>
+                            Under Review
+                        </option>
+
+                        <option
+                            value="In Progress"
+                            ${complaint.status === "In Progress" ? "selected" : ""}>
+                            In Progress
+                        </option>
+
+                        <option
+                            value="Resolved"
+                            ${complaint.status === "Resolved" ? "selected" : ""}>
+                            Resolved
+                        </option>
+
+                    </select>
+
+                </td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="details-btn"
+                        onclick="showComplaintDetails(
+                            '${escapeHtml(
+                                complaint.complaint_id
+                            )}'
+                        )">
+
+                        View Details
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    loadingMessage.style.display =
+        "none";
+
+    emptyMessage.style.display =
+        "none";
+
+    table.style.display =
+        "table";
+
+}
+
+
+    async function updateStatus(
+        complaintId,
+        newStatus
+    ) {
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/complaints/` +
+encodeURIComponent(
+    complaintId
+) +
+"/status",
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            status: newStatus
+                        })
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to update status."
+                );
+
+            }
+
+
+            await loadComplaints();
+
+
+        } catch (error) {
+
+            console.error(
+                "Status update error:",
+                error
+            );
+
+
+            alert(
+                "Unable to update complaint status."
+            );
+
+        }
+
+    }
+
+
+    function updateStatistics(
+    complaints
+) {
+
+    // ================================
+    // MAIN STATISTICS
+    // ================================
+
+    document.getElementById(
+        "totalComplaints"
+    ).textContent =
+        complaints.length;
+
+
+    document.getElementById(
+        "submittedComplaints"
+    ).textContent =
+        complaints.filter(
+            c => c.status === "Submitted"
+        ).length;
+
+
+    document.getElementById(
+        "progressComplaints"
+    ).textContent =
+        complaints.filter(
+            c =>
+                c.status === "In Progress" ||
+                c.status === "Under Review"
+        ).length;
+
+
+    document.getElementById(
+        "resolvedComplaints"
+    ).textContent =
+        complaints.filter(
+            c => c.status === "Resolved"
+        ).length;
+
+
+    // ================================
+    // CATEGORY ANALYTICS
+    // ================================
+
+    const categoryCounts = {
+
+        bus: 0,
+        staff: 0,
+        fare: 0,
+        cleanliness: 0,
+        delay: 0,
+        lost: 0,
+        other: 0
+
+    };
+
+
+    complaints.forEach(
+        function(complaint) {
+
+            const category =
+                complaint.category;
+
+            if (
+                categoryCounts.hasOwnProperty(
+                    category
+                )
+            ) {
+
+                categoryCounts[
+                    category
+                ]++;
+
+            } else {
+
+                categoryCounts.other++;
+
+            }
+
+        }
+    );
+
+
+    // ================================
+    // UPDATE ANALYTICS CARDS
+    // ================================
+
+    document.getElementById(
+        "busCount"
+    ).textContent =
+        categoryCounts.bus;
+
+
+    document.getElementById(
+        "staffCount"
+    ).textContent =
+        categoryCounts.staff;
+
+
+    document.getElementById(
+        "fareCount"
+    ).textContent =
+        categoryCounts.fare;
+
+
+    document.getElementById(
+        "cleanlinessCount"
+    ).textContent =
+        categoryCounts.cleanliness;
+
+
+    document.getElementById(
+        "delayCount"
+    ).textContent =
+        categoryCounts.delay;
+
+
+    document.getElementById(
+        "lostCount"
+    ).textContent =
+        categoryCounts.lost;
+
+
+    document.getElementById(
+    "otherCount"
+).textContent =
+    categoryCounts.other;
+
+
+updateCategoryChart(
+    categoryCounts
+);
+
+updateStatusChart(
+    complaints
+);
+
+}
+function updateCategoryChart(
+    categoryCounts
+) {
+
+    const chartCanvas =
+        document.getElementById(
+            "categoryChart"
+        );
+
+    if (!chartCanvas) {
+        return;
+    }
+
+    const chartData = [
+        categoryCounts.bus,
+        categoryCounts.staff,
+        categoryCounts.fare,
+        categoryCounts.cleanliness,
+        categoryCounts.delay,
+        categoryCounts.lost,
+        categoryCounts.other
+    ];
+
+    if (
+    window.categoryChart &&
+    typeof window.categoryChart.destroy === "function"
+) {
+    window.categoryChart.destroy();
+}
+
+    window.categoryChart =
+        new Chart(
+            chartCanvas,
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Bus Issues",
+                        "Staff",
+                        "Fare / Ticket",
+                        "Cleanliness",
+                        "Bus Delay",
+                        "Lost & Found",
+                        "Other"
+                    ],
+
+                    datasets: [
+                        {
+                            label:
+                                "Number of Complaints",
+
+                            data:
+                                chartData
+                        }
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+                            display: false
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero: true,
+
+                            ticks: {
+                                stepSize: 1
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+function updateStatusChart(
+    complaints
+) {
+
+    const chartCanvas =
+        document.getElementById(
+            "statusChart"
+        );
+
+    if (!chartCanvas) {
+        return;
+    }
+
+    const statusCounts = {
+        submitted: 0,
+        underReview: 0,
+        inProgress: 0,
+        resolved: 0
+    };
+
+    complaints.forEach(
+        function(complaint) {
+
+            if (
+                complaint.status ===
+                "Submitted"
+            ) {
+                statusCounts.submitted++;
+            }
+
+            else if (
+                complaint.status ===
+                "Under Review"
+            ) {
+                statusCounts.underReview++;
+            }
+
+            else if (
+                complaint.status ===
+                "In Progress"
+            ) {
+                statusCounts.inProgress++;
+            }
+
+            else if (
+                complaint.status ===
+                "Resolved"
+            ) {
+                statusCounts.resolved++;
+            }
+        }
+    );
+
+    const existingChart =
+        Chart.getChart(chartCanvas);
+
+    if (existingChart) {
+        existingChart.destroy();
+    }
+
+    new Chart(
+        chartCanvas,
+        {
+            type: "doughnut",
+
+            data: {
+                labels: [
+                    "Submitted",
+                    "Under Review",
+                    "In Progress",
+                    "Resolved"
+                ],
+
+                datasets: [
+                    {
+                        data: [
+                            statusCounts.submitted,
+                            statusCounts.underReview,
+                            statusCounts.inProgress,
+                            statusCounts.resolved
+                        ]
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }
+        }
+    );
+}
+    function formatCategory(
+        category
+    ) {
+
+        const categories = {
+
+            bus: "Bus Issue",
+
+            staff: "Staff Complaint",
+
+            fare: "Fare / Ticket Issue",
+
+            cleanliness: "Cleanliness",
+
+            delay: "Bus Delay",
+
+            lost: "Lost & Found",
+
+            other: "Other"
+
+        };
+
+
+        return escapeHtml(
+            categories[category] ||
+            category ||
+            "Not provided"
+        );
+
+    }
+
+
+    function escapeHtml(
+        value
+    ) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.textContent =
+            value ?? "";
+
+        return div.innerHTML;
+
+    }
+
+
+    async function showComplaintDetails(complaintId) {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/complaints/` +
+encodeURIComponent(complaintId)
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Complaint not found."
+            );
+
+        }
+
+        const complaint =
+            await response.json();
+
+        const detailsContent =
+            document.getElementById(
+                "detailsContent"
+            );
+
+        detailsContent.innerHTML = `
+
+            <div class="details-grid">
+
+                <div class="detail-box">
+                    <span>Complaint ID</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.complaint_id
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Current Status</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.status
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Passenger Name</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.name
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Mobile</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.mobile
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Email</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.email ||
+                            "Not provided"
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Bus / Service Number</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.bus_number
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Journey Date</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.journey_date
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Journey Time</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.journey_time ||
+                            "Not provided"
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Boarding Point</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.boarding_point
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Destination</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.destination
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Category</span>
+                    <strong>
+                        ${formatCategory(
+                            complaint.category
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Submitted At</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.submitted_at
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box full">
+                    <span>Route</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.route ||
+                            "Not provided"
+                        )}
+                    </strong>
+                </div>
+
+                <div class="detail-box full">
+                    <span>Complaint Description</span>
+                    <strong>
+                        ${escapeHtml(
+                            complaint.description
+                        )}
+                    </strong>
+                </div>
+
+            </div>
+
+        `;
+
+        document
+            .getElementById("detailsModal")
+            .classList.add("show");
+
+    } catch (error) {
+
+        console.error(
+            "Complaint details error:",
+            error
+        );
+
+        alert(
+            "Unable to load complaint details."
+        );
+
+    }
+
+}
+
+
+function closeComplaintDetails() {
+
+    document
+        .getElementById("detailsModal")
+        .classList.remove("show");
+
+}
+
+
+loadComplaints();
+
+function logoutAdmin() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href =
+        "admin-login.html";
+
+}
+function filterComplaints() {
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const searchText =
+        searchInput.value.toLowerCase().trim();
+
+    const selectedStatus =
+        statusFilter.value;
+
+    const complaints =
+        window.allComplaints || [];
+
+    const filteredComplaints =
+        complaints.filter(complaint => {
+
+            const searchableText = [
+
+                complaint.complaint_id,
+                complaint.name,
+                complaint.mobile,
+                complaint.bus_number,
+                complaint.category,
+                complaint.route,
+                complaint.boarding_point,
+                complaint.destination
+
+            ]
+                .join(" ")
+                .toLowerCase();
+
+            const matchesSearch =
+                searchableText.includes(searchText);
+
+            const matchesStatus =
+                selectedStatus === "All" ||
+                complaint.status === selectedStatus;
+
+            return (
+                matchesSearch &&
+                matchesStatus
+            );
+
+        });
+
+    displayComplaints(filteredComplaints);
+}
+</script>
+
+
+</body>
+
+</html>

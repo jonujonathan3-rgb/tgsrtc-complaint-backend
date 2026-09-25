@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+tgsrtc.db
+backend/tgsrtc.db
+backend/uploads/
+.DS_Store

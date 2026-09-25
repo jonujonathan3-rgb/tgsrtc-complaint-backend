@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TGSRTC Complaint Portal</title>
+
+    <meta
+        name="description"
+        content="TGSRTC Complaint Portal - Submit and track public transport complaints."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🚌</span>
+
+                <div>
+                    <span class="logo-title">TGSRTC</span>
+                    <span class="logo-subtitle">Complaint Portal</span>
+                </div>
+            </a>
+
+
+            <nav class="nav-links" id="navLinks">
+
+                <a href="index.html" class="active">
+                    Home
+                </a>
+
+                <a href="pages/complaint.html">
+                    File Complaint
+                </a>
+
+                <a href="pages/track.html">
+                    Track Complaint
+                </a>
+
+                <a href="pages/about.html">
+                    About
+                </a>
+
+            </nav>
+
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================
+             HERO SECTION
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        🚌 Passenger Support Portal
+                    </span>
+
+                    <h1>
+                        Your Voice Helps
+                        <span>Improve Bus Services</span>
+                    </h1>
+
+                    <p>
+                        Report travel-related issues, submit complaints,
+                        and track their progress easily from one place.
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="pages/complaint.html"
+                            class="btn btn-primary"
+                        >
+                            📝 File a Complaint
+                        </a>
+
+                        <a
+                            href="pages/track.html"
+                            class="btn btn-secondary"
+                        >
+                            🔍 Track Complaint
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-card">
+
+                    <div class="hero-card-icon">
+                        🚌
+                    </div>
+
+                    <h3>
+                        Passenger Complaint Portal
+                    </h3>
+
+                    <p>
+                        Submit your complaint and receive a
+                        unique complaint ID for tracking.
+                    </p>
+
+                    <div class="hero-card-status">
+
+                        <span class="status-dot"></span>
+
+                        Complaint tracking available
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             QUICK CATEGORIES
+        ========================== -->
+
+        <section class="categories section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    QUICK SUPPORT
+                </span>
+
+                <h2>
+                    How can we help?
+                </h2>
+
+                <p>
+                    Choose a category that best describes your issue.
+                </p>
+
+            </div>
+
+
+            <div class="category-grid">
+
+                <a href="pages/complaint.html" class="category-card">
+
+                    <div class="category-icon">
+                        🚌
+                    </div>
+
+                    <h3>
+                        Bus Issue
+                    </h3>
+
+                    <p>
+                        Report problems related to buses or services.
+                    </p>
+
+                </a>
+
+
+                <a href="pages/complaint.html" class="category-card">
+
+                    <div class="category-icon">
+                        👨‍✈️
+                    </div>
+
+                    <h3>
+                        Staff Complaint
+                    </h3>
+
+                    <p>
+                        Report issues related to staff behaviour or service.
+                    </p>
+
+                </a>
+
+
+                <a href="pages/complaint.html" class="category-card">
+
+                    <div class="category-icon">
+                        💰
+                    </div>
+
+                    <h3>
+                        Fare Issue
+                    </h3>
+
+                    <p>
+                        Report concerns regarding fares or ticketing.
+                    </p>
+
+                </a>
+
+
+                <a href="pages/complaint.html" class="category-card">
+
+                    <div class="category-icon">
+                        🧹
+                    </div>
+
+                    <h3>
+                        Cleanliness
+                    </h3>
+
+                    <p>
+                        Report cleanliness or maintenance issues.
+                    </p>
+
+                </a>
+
+
+                <a href="pages/complaint.html" class="category-card">
+
+                    <div class="category-icon">
+                        ⏰
+                    </div>
+
+                    <h3>
+                        Bus Delay
+                    </h3>
+
+                    <p>
+                        Report significant delays or schedule issues.
+                    </p>
+
+                </a>
+
+
+                <a href="pages/complaint.html" class="category-card">
+
+                    <div class="category-icon">
+                        📦
+                    </div>
+
+                    <h3>
+                        Lost & Found
+                    </h3>
+
+                    <p>
+                        Report or enquire about lost belongings.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             HOW IT WORKS
+        ========================== -->
+
+        <section class="how-section section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    SIMPLE PROCESS
+                </span>
+
+                <h2>
+                    How it works
+                </h2>
+
+                <p>
+                    Submit and track your complaint in three simple steps.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Submit
+                    </h3>
+
+                    <p>
+                        Describe your issue and provide the required
+                        journey details.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
+                        🔍
+                    </div>
+
+                    <h3>
+                        Track
+                    </h3>
+
+                    <p>
+                        Use your unique complaint ID to check the
+                        progress of your complaint.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+                        ✅
+                    </div>
+
+                    <h3>
+                        Resolution
+                    </h3>
+
+                    <p>
+                        Follow the status of your complaint until
+                        it is resolved.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TRACK COMPLAINT
+        ========================== -->
+
+        <section class="track-section section">
+
+            <div class="track-card">
+
+                <div class="track-icon">
+                    🔍
+                </div>
+
+                <div class="track-content">
+
+                    <span class="section-label">
+                        COMPLAINT STATUS
+                    </span>
+
+                    <h2>
+                        Track your complaint
+                    </h2>
+
+                    <p>
+                        Enter your complaint ID to check the latest
+                        status of your complaint.
+                    </p>
+
+
+                    <form class="track-form" id="trackForm">
+
+                        <input
+                            type="text"
+                            id="complaintId"
+                            placeholder="Example: TGSRTC-123456"
+                            required
+                        >
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Track Status
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INFORMATION NOTICE
+        ========================== -->
+
+        <section class="notice-section section">
+
+            <div class="notice">
+
+                <div class="notice-icon">
+                    ℹ️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Before submitting a complaint
+                    </h3>
+
+                    <p>
+                        Please provide accurate information about
+                        your journey and complaint. Your complaint
+                        ID should be kept safely for future tracking.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <div class="logo">
+
+                    <span class="logo-icon">
+                        🚌
+                    </span>
+
+                    <div>
+                        <span class="logo-title">
+                            TGSRTC
+                        </span>
+
+                        <span class="logo-subtitle">
+                            Complaint Portal
+                        </span>
+                    </div>
+
+                </div>
+
+                <p>
+                    A student project prototype for managing
+                    passenger complaints and feedback.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h4>
+                    Quick Links
+                </h4>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="pages/complaint.html">
+                    File Complaint
+                </a>
+
+                <a href="pages/track.html">
+                    Track Complaint
+                </a>
+
+                <a href="pages/about.html">
+                    About
+                </a>
+
+            </div>
+
+
+            <div class="footer-info">
+
+                <h4>
+                    Important
+                </h4>
+
+                <p>
+                    This is an independent student/project
+                    prototype and is not an official TGSRTC website.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 TGSRTC Complaint Portal
+            </p>
+
+            <p>
+                Built as a web development project
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

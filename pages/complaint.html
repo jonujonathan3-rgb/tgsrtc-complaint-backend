@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>File Complaint | TGSRTC Complaint Portal</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        /* Complaint page specific styles */
+
+        .complaint-page {
+            padding: 70px 20px 90px;
+            background: #f7f9fc;
+        }
+
+        .complaint-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            color: #123b78;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: #667085;
+        }
+
+        .complaint-card {
+            background: #ffffff;
+            border: 1px solid #e3e8f0;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(15, 35, 70, 0.07);
+        }
+
+        .form-section {
+            margin-bottom: 38px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 22px;
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid #e8edf4;
+
+            color: #123b78;
+            font-size: 1.15rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #344054;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .required {
+            color: #d71920;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+
+            border: 1px solid #cdd7e5;
+            border-radius: 9px;
+
+            background: #ffffff;
+            color: #172033;
+
+            outline: none;
+
+            transition: 0.2s ease;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 46px;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #123b78;
+            box-shadow: 0 0 0 3px rgba(18, 59, 120, 0.08);
+        }
+
+        .file-box {
+            padding: 20px;
+
+            border: 1px dashed #b9c7d9;
+            border-radius: 10px;
+
+            background: #f8fbff;
+        }
+
+        .file-box small {
+            display: block;
+            margin-top: 7px;
+            color: #667085;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+
+            margin-top: 35px;
+            padding-top: 25px;
+
+            border-top: 1px solid #e8edf4;
+        }
+
+        .cancel-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+            padding: 0 20px;
+
+            border: 1px solid #cdd7e5;
+            border-radius: 9px;
+
+            background: #ffffff;
+            color: #344054;
+
+            font-weight: 700;
+        }
+
+        .privacy-note {
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #667085;
+            font-size: 0.78rem;
+        }
+
+        @media (max-width: 700px) {
+
+            .complaint-page {
+                padding: 50px 15px 70px;
+            }
+
+            .complaint-card {
+                padding: 25px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .form-actions .btn,
+            .cancel-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="../index.html" class="logo">
+
+                <span class="logo-icon">
+                    🚌
+                </span>
+
+                <div>
+                    <span class="logo-title">
+                        TGSRTC
+                    </span>
+
+                    <span class="logo-subtitle">
+                        Complaint Portal
+                    </span>
+                </div>
+
+            </a>
+
+
+            <nav class="nav-links" id="navLinks">
+
+                <a href="../index.html">
+                    Home
+                </a>
+
+                <a href="complaint.html" class="active">
+                    File Complaint
+                </a>
+
+                <a href="track.html">
+                    Track Complaint
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+            </nav>
+
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         COMPLAINT FORM
+    ========================== -->
+
+    <main class="complaint-page">
+
+        <div class="complaint-container">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <span class="section-label">
+                    PASSENGER SUPPORT
+                </span>
+
+                <h1>
+                    File a Complaint
+                </h1>
+
+                <p>
+                    Please provide the details below so your complaint
+                    can be reviewed properly.
+                </p>
+
+            </div>
+
+
+            <!-- FORM CARD -->
+
+            <div class="complaint-card">
+
+                <form id="complaintForm">
+
+
+                    <!-- =========================
+                         PASSENGER DETAILS
+                    ========================== -->
+
+                    <section class="form-section">
+
+                        <h2 class="form-section-title">
+                            👤 Passenger Details
+                        </h2>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="fullName">
+                                    Full Name
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="fullName"
+                                    placeholder="Enter your full name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="mobile">
+                                    Mobile Number
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="mobile"
+                                    name="mobile"
+                                    placeholder="Enter mobile number"
+                                    pattern="[0-9]{10}"
+                                    maxlength="10"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label for="email">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =========================
+                         JOURNEY DETAILS
+                    ========================== -->
+
+                    <section class="form-section">
+
+                        <h2 class="form-section-title">
+                            🚌 Journey Details
+                        </h2>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="busNumber">
+                                    Bus Number / Service Number
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="busNumber"
+                                    name="busNumber"
+                                    placeholder="Example: TS08Z1234"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="journeyDate">
+                                    Journey Date
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="journeyDate"
+                                    name="journeyDate"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="journeyTime">
+                                    Approximate Journey Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    id="journeyTime"
+                                    name="journeyTime"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="route">
+                                    Route
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="route"
+                                    name="route"
+                                    placeholder="Example: Hyderabad - Warangal"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="boarding">
+                                    Boarding Point
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="boardingPoint"
+                                    name="boarding"
+                                    placeholder="Where did you board?"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="destination">
+                                    Destination
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="destination"
+                                    name="destination"
+                                    placeholder="Where did you get off?"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =========================
+                         COMPLAINT DETAILS
+                    ========================== -->
+
+                    <section class="form-section">
+
+                        <h2 class="form-section-title">
+                            📝 Complaint Details
+                        </h2>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group full">
+
+                                <label for="category">
+                                    Complaint Category
+                                    <span class="required">*</span>
+                                </label>
+
+                                <select
+                                    id="category"
+                                    name="category"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select complaint category
+                                    </option>
+
+                                    <option value="bus">
+                                        🚌 Bus Issue
+                                    </option>
+
+                                    <option value="staff">
+                                        👨‍✈️ Staff Complaint
+                                    </option>
+
+                                    <option value="fare">
+                                        💰 Fare / Ticket Issue
+                                    </option>
+
+                                    <option value="cleanliness">
+                                        🧹 Cleanliness
+                                    </option>
+
+                                    <option value="delay">
+                                        ⏰ Bus Delay
+                                    </option>
+
+                                    <option value="lost">
+                                        📦 Lost & Found
+                                    </option>
+
+                                    <option value="other">
+                                        📋 Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label for="description">
+                                    Describe Your Complaint
+                                    <span class="required">*</span>
+                                </label>
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    placeholder="Please explain what happened..."
+                                    maxlength="1000"
+                                    required
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+    <label for="evidence">
+        Upload Supporting Evidence
+    </label>
+
+    <div class="file-box">
+
+        <input
+            type="file"
+            id="evidence"
+            name="evidence"
+            accept="image/*,video/*"
+        >
+
+        <small>
+            Optional. You can upload a supporting photo or video.
+            Accepted formats: JPG, JPEG, PNG, WEBP, MP4, MOV, WEBM.
+        </small>
+
+    </div>
+
+</div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =========================
+                         ACTIONS
+                    ========================== -->
+
+                    <div class="form-actions">
+
+                        <a
+                            href="../index.html"
+                            class="cancel-button"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            📝 Submit Complaint
+                        </button>
+
+                    </div>
+
+
+                    <p class="privacy-note">
+                        Please make sure the information provided is
+                        accurate before submitting your complaint.
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <div class="logo">
+
+                    <span class="logo-icon">
+                        🚌
+                    </span>
+
+                    <div>
+
+                        <span class="logo-title">
+                            TGSRTC
+                        </span>
+
+                        <span class="logo-subtitle">
+                            Complaint Portal
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <p>
+                    A student project prototype for managing
+                    passenger complaints and feedback.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h4>
+                    Quick Links
+                </h4>
+
+                <a href="../index.html">
+                    Home
+                </a>
+
+                <a href="complaint.html">
+                    File Complaint
+                </a>
+
+                <a href="track.html">
+                    Track Complaint
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+            </div>
+
+
+            <div class="footer-info">
+
+                <h4>
+                    Important
+                </h4>
+
+                <p>
+                    This is an independent student/project
+                    prototype and is not an official TGSRTC website.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 TGSRTC Complaint Portal
+            </p>
+
+            <p>
+                Built as a web development project
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | TGSRTC Complaint Portal</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        .login-page {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            background: #f7f9fc;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e3e8f0;
+        }
+
+        .login-card h1 {
+            color: #123b78;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: #667085;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .login-notice {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #172033;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d9dee8;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #123b78;
+            box-shadow: 0 0 0 3px rgba(18, 59, 120, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #123b78;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            background: #0b2c5d;
+        }
+
+        .login-error {
+            display: none;
+            margin-top: 15px;
+            padding: 11px 13px;
+            border-radius: 8px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #123b78;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .demo-credentials {
+            margin-top: 22px;
+            padding: 12px 14px;
+            background: #eef5ff;
+            border: 1px solid #d7e6ff;
+            border-radius: 8px;
+            color: #123b78;
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="../index.html"
+            class="logo">
+            TGSRTC Complaint Portal
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="complaint.html">
+                File Complaint
+            </a>
+
+            <a href="track.html">
+                Track Complaint
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="login-page">
+
+    <div class="login-card">
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p class="subtitle">
+            Access the complaint management dashboard
+        </p>
+
+
+        <div class="login-notice">
+
+            <strong>Prototype Notice:</strong><br>
+
+            This is a student/project prototype.
+            The login is for demonstration purposes
+            and is not an official TGSRTC administration system.
+
+        </div>
+
+
+        <form id="loginForm">
+
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    required>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn">
+
+                🔐 Login
+
+            </button>
+
+
+            <div
+                id="loginError"
+                class="login-error">
+
+                Invalid username or password.
+
+            </div>
+
+
+        </form>
+
+
+        <div class="demo-credentials">
+
+            <strong>Demo Credentials</strong><br><br>
+
+            Username: <strong>admin</strong><br>
+
+            Password: <strong>admin123</strong>
+
+        </div>
+
+
+        <a
+            href="../index.html"
+            class="back-link">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <p>
+            © 2026 TGSRTC Complaint Portal
+        </p>
+
+        <p>
+            A student project prototype for learning and demonstration.
+        </p>
+
+        <p>
+            This is an independent student/project prototype
+            and is not an official TGSRTC website.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+
+    loginForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const username =
+                document.getElementById(
+                    "username"
+                ).value.trim();
+
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
+
+
+            const loginError =
+                document.getElementById(
+                    "loginError"
+                );
+
+
+            if (
+                username === "admin" &&
+                password === "admin123"
+            ) {
+
+                sessionStorage.setItem(
+                    "adminLoggedIn",
+                    "true"
+                );
+
+
+                window.location.href =
+                    "admin.html";
+
+            } else {
+
+                loginError.style.display =
+                    "block";
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

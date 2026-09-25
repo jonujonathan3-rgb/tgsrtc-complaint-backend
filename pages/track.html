@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Track Complaint | TGSRTC Complaint Portal</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        /* =====================================================
+           TRACK COMPLAINT PAGE
+        ===================================================== */
+
+        .track-page {
+            min-height: 70vh;
+            padding: 60px 20px;
+        }
+
+        .track-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .track-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .track-header h1 {
+            margin-bottom: 10px;
+        }
+
+        .track-header p {
+            color: #667085;
+        }
+
+        .track-card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .track-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .track-form input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #d9dee8;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .track-form input:focus {
+            border-color: #123b78;
+        }
+
+        .track-form button {
+            border: none;
+            cursor: pointer;
+        }
+
+        .track-result {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .track-result.show {
+            display: block;
+        }
+
+        .complaint-summary {
+            border: 1px solid #e3e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            background: #f8fafc;
+        }
+
+        .complaint-summary h2 {
+            color: #123b78;
+            margin-bottom: 20px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e3e8f0;
+        }
+
+        .detail-item span {
+            display: block;
+            font-size: 13px;
+            color: #667085;
+            margin-bottom: 5px;
+        }
+
+        .detail-item strong {
+            color: #172033;
+            word-break: break-word;
+        }
+
+        /* STATUS */
+
+        .status-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #eef5ff;
+            border-left: 5px solid #123b78;
+            border-radius: 8px;
+        }
+
+        .status-box span {
+            display: block;
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .status-box strong {
+            color: #123b78;
+            font-size: 20px;
+        }
+
+        /* PROGRESS */
+
+        .progress-section {
+            margin-top: 30px;
+        }
+
+        .progress-section h3 {
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .progress::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 8%;
+            right: 8%;
+            height: 3px;
+            background: #d9dee8;
+            z-index: 0;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 25%;
+        }
+
+        .progress-circle {
+            width: 32px;
+            height: 32px;
+            margin: auto;
+            border-radius: 50%;
+            background: #d9dee8;
+            color: #667085;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .progress-step.active .progress-circle {
+            background: #123b78;
+            color: #ffffff;
+        }
+
+        .progress-step.active span {
+            color: #123b78;
+            font-weight: bold;
+        }
+
+        .progress-step span {
+            font-size: 12px;
+            color: #667085;
+        }
+
+        /* ERROR */
+
+        .track-error {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff1f2;
+            color: #b42318;
+            border: 1px solid #fecdd3;
+            border-radius: 8px;
+        }
+
+        .track-error.show {
+            display: block;
+        }
+
+        .latest-btn {
+            display: block;
+            margin: 15px auto 0;
+            background: transparent;
+            border: none;
+            color: #123b78;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .track-page {
+                padding: 40px 15px;
+            }
+
+            .track-card {
+                padding: 22px;
+            }
+
+            .track-form {
+                flex-direction: column;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-step span {
+                font-size: 10px;
+            }
+
+        }
+
+    </style>
+    
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="../index.html" class="logo">
+            TGSRTC Complaint Portal
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open menu">
+            ☰
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="complaint.html">
+                File Complaint
+            </a>
+
+            <a href="track.html" class="active">
+                Track Complaint
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     TRACK PAGE
+===================================================== -->
+
+<main class="track-page">
+
+    <div class="track-container">
+
+
+        <div class="track-header">
+
+            <h1>
+                Track Your Complaint
+            </h1>
+
+            <p>
+                Enter your Complaint ID to view the current status.
+            </p>
+
+        </div>
+
+
+        <div class="track-card">
+
+
+            <!-- TRACK FORM -->
+
+            <form id="trackForm" class="track-form">
+
+                <input
+                    type="text"
+                    id="trackComplaintId"
+                    placeholder="Example: TGSRTC-20260925-1317"
+                    required>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Track Status
+                </button>
+
+            </form>
+
+
+            <button
+                type="button"
+                id="latestComplaintButton"
+                class="latest-btn">
+                Use My Latest Complaint
+            </button>
+
+
+            <!-- ERROR -->
+
+            <div
+                id="trackError"
+                class="track-error">
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                id="trackResult"
+                class="track-result">
+
+
+                <div class="complaint-summary">
+
+                    <h2>
+                        Complaint Details
+                    </h2>
+
+
+                    <div class="detail-grid">
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Complaint ID
+                            </span>
+
+                            <strong id="resultComplaintId">
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Category
+                            </span>
+
+                            <strong id="resultCategory">
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Bus / Service Number
+                            </span>
+
+                            <strong id="resultBusNumber">
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Journey Date
+                            </span>
+
+                            <strong id="resultJourneyDate">
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Boarding Point
+                            </span>
+
+                            <strong id="resultBoarding">
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Destination
+                            </span>
+
+                            <strong id="resultDestination">
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Submitted
+                            </span>
+
+                            <strong id="resultSubmitted">
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="status-box">
+
+                        <span>
+                            Current Status
+                        </span>
+
+                        <strong id="resultStatus">
+                            Submitted
+                        </strong>
+
+                    </div>
+
+
+                    <!-- PROGRESS -->
+                     <!-- EVIDENCE -->
+
+<div
+    class="evidence-section"
+    id="evidenceSection"
+    style="display: none; margin-top: 30px;"
+>
+
+    <h3 style="margin-bottom: 15px;">
+        Supporting Evidence
+    </h3>
+
+    <div
+        id="evidenceContainer"
+        style="
+            background: #ffffff;
+            border: 1px solid #e3e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        "
+    >
+    </div>
+
+</div>
+
+                    <div class="progress-section">
+
+                        <h3>
+                            Complaint Progress
+                        </h3>
+
+                        <div class="progress">
+
+
+                            <div class="progress-step active">
+
+                                <div class="progress-circle">
+                                    ✓
+                                </div>
+
+                                <span>
+                                    Submitted
+                                </span>
+
+                            </div>
+
+
+                            <div class="progress-step">
+
+                                <div class="progress-circle">
+                                    2
+                                </div>
+
+                                <span>
+                                    Under Review
+                                </span>
+
+                            </div>
+
+
+                            <div class="progress-step">
+
+                                <div class="progress-circle">
+                                    3
+                                </div>
+
+                                <span>
+                                    In Progress
+                                </span>
+
+                            </div>
+
+
+                            <div class="progress-step">
+
+                                <div class="progress-circle">
+                                    4
+                                </div>
+
+                                <span>
+                                    Resolved
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <p>
+            © 2026 TGSRTC Complaint Portal
+        </p>
+
+        <p>
+            A student project prototype for learning and demonstration.
+        </p>
+
+        <p>
+            This is an independent student/project prototype
+            and is not an official TGSRTC website.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="../js/script.js"></script>
+
+<!-- TRACKING SCRIPT -->
+
+<script>
+
+    const trackForm =
+        document.getElementById("trackForm");
+
+    const trackInput =
+        document.getElementById("trackComplaintId");
+
+    const trackResult =
+        document.getElementById("trackResult");
+
+    const trackError =
+        document.getElementById("trackError");
+
+
+    async function trackComplaint(complaintId) {
+
+        const cleanComplaintId =
+            complaintId.trim();
+
+
+        if (!cleanComplaintId) {
+
+            showTrackError(
+                "Please enter your Complaint ID."
+            );
+
+            return;
+
+        }
+
+
+        // Hide previous messages
+        trackError.classList.remove("show");
+
+        trackResult.classList.remove("show");
+
+
+        try {
+
+            const response = await fetch(
+    `${API_BASE_URL}/api/complaints/` +
+    encodeURIComponent(cleanComplaintId)
+);
+
+
+            if (response.status === 404) {
+
+                showTrackError(
+                    "Complaint ID not found. Please check the ID and try again."
+                );
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to connect to the complaint server."
+                );
+
+            }
+
+
+            const complaint =
+                await response.json();
+
+
+            // Show result
+            trackResult.classList.add("show");
+
+
+            // Fill details
+            document.getElementById(
+                "resultComplaintId"
+            ).textContent =
+                complaint.complaint_id || "Not available";
+
+
+            document.getElementById(
+                "resultCategory"
+            ).textContent =
+                formatCategory(complaint.category);
+
+
+            document.getElementById(
+                "resultBusNumber"
+            ).textContent =
+                complaint.bus_number || "Not provided";
+
+
+            document.getElementById(
+                "resultJourneyDate"
+            ).textContent =
+                complaint.journey_date || "Not provided";
+
+
+            document.getElementById(
+                "resultBoarding"
+            ).textContent =
+                complaint.boarding_point || "Not provided";
+
+
+            document.getElementById(
+                "resultDestination"
+            ).textContent =
+                complaint.destination || "Not provided";
+
+
+            document.getElementById(
+                "resultSubmitted"
+            ).textContent =
+                complaint.submitted_at || "Not available";
+
+
+            document.getElementById(
+                "resultStatus"
+            ).textContent =
+                complaint.status || "Submitted";
+
+
+            updateProgress(
+                complaint.status || "Submitted"
+            );
+            displayEvidence(
+    complaint.evidence_file
+);
+
+
+        } catch (error) {
+
+            console.error(
+                "Tracking error:",
+                error
+            );
+
+
+            showTrackError(
+                "Unable to connect to the complaint server. Please make sure the FastAPI backend is running."
+            );
+
+        }
+
+    }
+
+function displayEvidence(evidenceFile) {
+
+    const evidenceSection =
+        document.getElementById(
+            "evidenceSection"
+        );
+
+    const evidenceContainer =
+        document.getElementById(
+            "evidenceContainer"
+        );
+
+
+    if (!evidenceSection || !evidenceContainer) {
+        return;
+    }
+
+
+    // Clear previous evidence
+    evidenceContainer.innerHTML = "";
+
+
+    // No evidence uploaded
+    if (!evidenceFile) {
+
+        evidenceSection.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const extension =
+        evidenceFile
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const imageExtensions = [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp"
+    ];
+
+
+    const videoExtensions = [
+        "mp4",
+        "mov",
+        "webm"
+    ];
+
+
+    let fileUrl = "";
+
+
+    if (imageExtensions.includes(extension)) {
+
+        fileUrl =
+    `${API_BASE_URL}/uploads/images/` +
+    encodeURIComponent(evidenceFile);
+
+        evidenceContainer.innerHTML = `
+
+            <img
+                src="${fileUrl}"
+                alt="Supporting evidence"
+                style="
+                    width: 100%;
+                    max-width: 600px;
+                    max-height: 500px;
+                    object-fit: contain;
+                    display: block;
+                    margin: auto;
+                    border-radius: 10px;
+                "
+            >
+
+        `;
+
+
+    } else if (
+        videoExtensions.includes(extension)
+    ) {
+
+        fileUrl =
+    `${API_BASE_URL}/uploads/videos/` +
+    encodeURIComponent(evidenceFile);
+
+        evidenceContainer.innerHTML = `
+
+            <video
+                controls
+                style="
+                    width: 100%;
+                    max-width: 700px;
+                    max-height: 500px;
+                    display: block;
+                    margin: auto;
+                    border-radius: 10px;
+                "
+            >
+
+                <source
+                    src="${fileUrl}"
+                >
+
+                Your browser does not support
+                video playback.
+
+            </video>
+
+        `;
+
+
+    } else {
+
+        evidenceContainer.innerHTML = `
+
+            <p style="color: #667085;">
+                Evidence file is available:
+                <strong>
+                    ${evidenceFile}
+                </strong>
+            </p>
+
+        `;
+
+    }
+
+
+    evidenceSection.style.display =
+        "block";
+}
+    function formatCategory(category) {
+
+        const categories = {
+
+            bus: "Bus Issue",
+
+            staff: "Staff Complaint",
+
+            fare: "Fare / Ticket Issue",
+
+            cleanliness: "Cleanliness",
+
+            delay: "Bus Delay",
+
+            lost: "Lost & Found",
+
+            other: "Other"
+
+        };
+
+
+        return categories[category] ||
+               category ||
+               "Not provided";
+
+    }
+
+
+    function updateProgress(status) {
+
+        const steps =
+            document.querySelectorAll(
+                ".progress-step"
+            );
+
+
+        steps.forEach(function(step) {
+
+            step.classList.remove("active");
+
+        });
+
+
+        let activeStep = 0;
+
+
+        if (
+            status === "Submitted"
+        ) {
+
+            activeStep = 0;
+
+        } else if (
+            status === "Under Review"
+        ) {
+
+            activeStep = 1;
+
+        } else if (
+            status === "In Progress"
+        ) {
+
+            activeStep = 2;
+
+        } else if (
+            status === "Resolved"
+        ) {
+
+            activeStep = 3;
+
+        }
+
+
+        for (
+            let i = 0;
+            i <= activeStep;
+            i++
+        ) {
+
+            if (steps[i]) {
+
+                steps[i].classList.add("active");
+
+            }
+
+        }
+
+    }
+
+
+    function showTrackError(message) {
+
+        trackResult.classList.remove("show");
+
+        trackError.textContent =
+            message;
+
+        trackError.classList.add("show");
+
+    }
+
+
+    trackForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            trackComplaint(
+                trackInput.value
+            );
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "latestComplaintButton"
+        )
+        .addEventListener(
+            "click",
+            function() {
+
+                const storedComplaint =
+                    localStorage.getItem(
+                        "latestComplaint"
+                    );
+
+
+                if (!storedComplaint) {
+
+                    showTrackError(
+                        "No latest complaint is available. Please submit a complaint first."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const complaint =
+                        JSON.parse(
+                            storedComplaint
+                        );
+
+
+                    // Support the current backend
+                    // complaint_id format
+                    const complaintId =
+                        complaint.complaint_id ||
+                        complaint.complaintId;
+
+
+                    if (!complaintId) {
+
+                        showTrackError(
+                            "No Complaint ID was found for the latest complaint."
+                        );
+
+                        return;
+
+                    }
+
+
+                    trackInput.value =
+                        complaintId;
+
+
+                    // Fetch the real record
+                    // from SQLite through FastAPI
+                    trackComplaint(
+                        complaintId
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Latest complaint error:",
+                        error
+                    );
+
+
+                    showTrackError(
+                        "Unable to read your latest complaint."
+                    );
+
+                }
+
+            }
+        );
+
+</script>
+
+</body>
+
+</html>
