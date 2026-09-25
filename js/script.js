@@ -3,9 +3,7 @@
 // =====================================================
 
 const API_BASE_URL =
-    "http://127.0.0.1:8000";
-
-
+    "https://tgsrtc-complaint-backend.onrender.com";
 // =====================================================
 // MOBILE MENU
 // =====================================================
@@ -156,28 +154,14 @@ if (complaintForm) {
 
             if (!response.ok) {
 
-                let errorMessage =
-                    "Unable to submit complaint.";
+    const text = await response.text();   // ✅ read ONLY once
 
-                try {
+    console.error("SERVER ERROR:", text);
 
-                    const errorData =
-                        await response.json();
+    alert("Error from server:\n" + text);
 
-                    if (errorData.detail) {
-                        errorMessage =
-                            errorData.detail;
-                    }
-
-                } catch (jsonError) {
-
-                    // Keep default error message
-
-                }
-
-                throw new Error(errorMessage);
-            }
-
+    throw new Error(text);
+}
 
             // =====================================================
             // GET RESPONSE FROM BACKEND
@@ -268,28 +252,24 @@ if (complaintForm) {
 
         } catch (error) {
 
-            console.error(
-                "Complaint submission error:",
-                error
-            );
+    console.error(
+        "Complaint submission error:",
+        error
+    );
 
-            alert(
-                "Unable to submit complaint.\n\n" +
-                "Please make sure the FastAPI backend is running."
-            );
+    alert("Submission failed:\n" + error.message);
 
+    // Re-enable button
+    if (submitButton) {
 
-            // Re-enable button
-            if (submitButton) {
+        submitButton.disabled = false;
 
-                submitButton.disabled = false;
+        submitButton.textContent =
+            "Submit Complaint";
 
-                submitButton.textContent =
-                    "Submit Complaint";
+    }
+}
 
-            }
-
-        }
 
     });
 }
