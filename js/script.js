@@ -2,8 +2,7 @@
 // BACKEND API CONFIGURATION
 // =====================================================
 
-const API_BASE_URL =
-    "https://tgsrtc-complaint-backend.onrender.com";
+const API_BASE_URL = "https://tgsrtc-complaint-backend.onrender.com";
 // =====================================================
 // MOBILE MENU
 // =====================================================
